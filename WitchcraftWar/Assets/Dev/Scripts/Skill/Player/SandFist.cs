@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class SandFist : Skill
 {
-    [SerializeField] private ObjectPool<Projectile> projectilePool;  //총알 오브젝트 풀
-    [SerializeField] private GameObject baseProjectilePrefab;    //총알 기본 프리팹
+    [SerializeField] private ObjectPool<Projectile> projectilePool;     //총알 오브젝트 풀
+    [SerializeField] private GameObject baseProjectilePrefab;           //총알 기본 프리팹
+
+    public override void Reset()
+    {
+        throw new NotImplementedException();
+    }
 
     /// <summary>
     /// 초기화
