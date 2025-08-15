@@ -10,7 +10,7 @@ public sealed class AnimatorContainer : IInit
     public void Init()
     {
         CreateStringKey<EnemyIDType>("Animator/Monster");
-        CreateintKey<ItemIDType>("Animator/Item");
+        CreateintKey<SkillIDType>("Animator/Skill");
     }
 
     /// <summary>
@@ -37,7 +37,6 @@ public sealed class AnimatorContainer : IInit
         foreach (T type in Enum.GetValues(typeof(T)))
         {
             string sType = type.EnumToString();
-
             RuntimeAnimatorController animator = Resources.Load<RuntimeAnimatorController>($"{path}/{sType}");
 
             characterDic.Add(type, animator);

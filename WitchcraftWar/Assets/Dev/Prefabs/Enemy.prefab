@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2937577201552283924}
@@ -61,7 +61,6 @@ MonoBehaviour:
   animator: {fileID: 5675266076860246469}
   circleCollider: {fileID: 6497902876711137187}
   triggerDetector: {fileID: 5719706867769088728}
-  dropItemArr: 
 --- !u!114 &-5574223137823000618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4907280345231468106, guid: 24deed1f80a1ba94fac8e34b7dd40dbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.91
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4907280345231468106, guid: 24deed1f80a1ba94fac8e34b7dd40dbd, type: 3}
       propertyPath: m_LocalPosition.z

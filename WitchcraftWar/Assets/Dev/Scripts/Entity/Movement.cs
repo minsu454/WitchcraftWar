@@ -16,8 +16,6 @@ public abstract class Movement<T> : MonoBehaviour where T : Entity
         Move();
     }
 
-
-
     /// <summary>
     /// 움직이는 함수
     /// </summary>

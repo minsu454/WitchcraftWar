@@ -33,7 +33,7 @@ public sealed class SpawnManager : MonoBehaviour
     private void Init()
     {
         new GameObject("-------------EnemyPool-----------------");
-        enemyPool = new ObjectPool<Enemy>("Enemy", baseEnemyPrefab, null, 30);
+        enemyPool = new ObjectPool<Enemy>("Enemy", baseEnemyPrefab, null, 10);
 
         enemyTypeLength = Enum.GetValues(typeof(EnemyIDType)).Length;
 
@@ -43,9 +43,9 @@ public sealed class SpawnManager : MonoBehaviour
     /// <summary>
     /// 스폰 함수
     /// </summary>
-    public void Spawn(int spawnCount, Action enemyDieEvent)
+    public void Spawn(bool isBoss, int spawnCount, Action enemyDieEvent)
     {
-        coSpawn = StartCoroutine(CoSpawn(spawnCount, enemyDieEvent));
+        coSpawn = StartCoroutine(CoSpawn(isBoss, spawnCount, enemyDieEvent));
     }
 
     public void UnSpawn(object args)
@@ -56,19 +56,24 @@ public sealed class SpawnManager : MonoBehaviour
     /// <summary>
     /// 스폰 코루틴 함수
     /// </summary>
-    private IEnumerator CoSpawn(int spawnCount, Action returnEvent)
+    private IEnumerator CoSpawn(bool isBoss, int spawnCount, Action returnEvent)
     {
-        int randomNum;
-        for (int i = 0; i < spawnCount; i++)
+        if (isBoss)
         {
-            Enemy enemy = enemyPool.GetObject();
-            randomNum = UnityEngine.Random.Range(0, enemyTypeLength);
-            enemy.Set((EnemyIDType)randomNum, returnEvent);
-
-            randomNum = UnityEngine.Random.Range(0, spawnerList.Count);
-            spawnerList[randomNum].Spawn(enemy.gameObject);
-
             yield return YieldCache.WaitForSeconds(spawnTerm);
+        }
+        else
+        {
+            int randomNum = 0;
+            for (int i = 0; i < spawnCount; i++)
+            {
+                Enemy enemy = enemyPool.GetObject();
+                
+                enemy.Set((EnemyIDType)randomNum, returnEvent);
+                spawnerList[randomNum].Spawn(enemy.gameObject);
+
+                yield return YieldCache.WaitForSeconds(spawnTerm);
+            }
         }
     }
 

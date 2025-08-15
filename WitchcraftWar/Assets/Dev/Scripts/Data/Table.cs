@@ -4,13 +4,13 @@ using System.Collections.Generic;
 public class Table
 {
     [Serializable]
-    public class ItemTable : ITable
+    public class SkillTable : ITable
     {
-        public List<TableData.Item> Item;
+        public List<TableData.Skill> Item;
 
         public IData FindID(object ID)
         {
-            return Item.Find(item => (int)item.ID == (int)ID);
+            return Item.Find(skill => (int)skill.ID == (int)ID);
         }
     }
 

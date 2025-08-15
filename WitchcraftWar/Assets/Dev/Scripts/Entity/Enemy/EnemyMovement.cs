@@ -7,7 +7,7 @@ public class EnemyMovement : Movement<Enemy>
     public override void Move()
     {
         Vector3 dirVec = (EntityManager.player.transform.position - transform.position).normalized;
-        myRb.velocity = dirVec * entity.MoveSpeed;
+        myRb.velocity = dirVec * entity.MoveSpeed * 0.5f;
     }
 
     public override void Stop()

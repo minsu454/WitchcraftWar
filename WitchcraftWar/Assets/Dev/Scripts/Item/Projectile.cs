@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IObjectPoolable<Bullet>
+public class Projectile : MonoBehaviour, IObjectPoolable<Projectile>
 {
-    public event Action<Bullet> ReturnEvent;
+    public event Action<Projectile> ReturnEvent;
 
     [SerializeField] private int damage;
     [SerializeField] private Rigidbody2D myRb;

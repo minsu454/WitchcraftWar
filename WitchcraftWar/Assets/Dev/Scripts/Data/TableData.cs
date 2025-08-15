@@ -3,23 +3,19 @@ using System;
 public class TableData
 {
     [Serializable]
-    public class Item : IData
+    public class Skill : IData
     {
-        public object ID { get { return ItemID; } }
+        public object ID { get { return SkillID; } }
 
-        public int ItemID;
+        public int SkillID;
         public string Name;
         public string Description;
-        public int UnlockLev;
-        public int MaxHP;
-        public float MaxHPMul;
-        public int MaxMP;
-        public float MaxMPMul;
+        public AttributeType AttributeType;
+        public RangeType RangeType;
         public int MaxAtk;
-        public float MaxAtkMul;
-        public int MaxDef;
-        public float MaxDefMul;
-        public int Status;
+        public float CoolTime;
+        public int TargetCount;
+        //public bool 
     }
 
     [Serializable]
@@ -38,8 +34,6 @@ public class TableData
         public float AttackRangeMul;
         public float AttackSpeed;
         public float MoveSpeed;
-        public int MinExp;
-        public int MaxExp;
-        public int[] DropItem;
+        public int Coin;
     }
 }

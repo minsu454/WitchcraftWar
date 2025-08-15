@@ -14,7 +14,6 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
     [SerializeField] private CircleCollider2D circleCollider;   //콜라이더
     private const float colliderRadius = 0.5f;                  //콜라이더 범위 기본 값
     [SerializeField] private TriggerDetector2D triggerDetector; //공격범위 콜라이더
-    [SerializeField] private int[] dropItemArr;                 //죽을 시 드롭 아이템 아이디 배열
 
     private EnemyMovement enemyMovement;
     private Coroutine coGiveDamage;                             //일정 시간마다 데미지 주는 코루틴 저장 변수
@@ -39,7 +38,6 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
         moveSpeed = data.MoveSpeed;
         maxHp = data.MaxHP;
         curHp = maxHp;
-        dropItemArr = data.DropItem;
         circleCollider.radius *= data.AttackRange;
         attackSpeed = data.AttackSpeed;
 
@@ -54,20 +52,7 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
     /// </summary>
     protected override void Die()
     {
-        DropItem();
-
         gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// 아이템 떨구는 함수
-    /// </summary>
-    private void DropItem()
-    {
-        if (dropItemArr.Length == 0)
-            return;
-
-
     }
 
     /// <summary>

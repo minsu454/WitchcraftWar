@@ -4,6 +4,7 @@ using UnityEngine;
 public sealed class StageManager : MonoBehaviour
 {
     [SerializeField] private int round = 0;             //라운드
+    [SerializeField] private int roundSpawnCount = 5;   //라운드 별 스폰 카운트
 
     private SpawnManager spawnManager;                  //스폰 매니저
     private int enemyCount;                             //현재 스폰되어있는 적 숫자
@@ -20,7 +21,7 @@ public sealed class StageManager : MonoBehaviour
     {
         round++;
         enemyCount = round;
-        spawnManager.Spawn(round * 2, EnemyDieEvent);
+        spawnManager.Spawn(false, round * roundSpawnCount, EnemyDieEvent);
     }
 
     /// <summary>
@@ -31,7 +32,7 @@ public sealed class StageManager : MonoBehaviour
         round++;
         enemyCount = round;
         EventManager.Dispatch(GameEventType.NextRound, null);
-        spawnManager.Spawn(round * 2, EnemyDieEvent);
+        spawnManager.Spawn(false, round * roundSpawnCount, EnemyDieEvent);
     }
     
     /// <summary>

@@ -13,7 +13,7 @@ public static class DataServices
     /// </summary>
     public static void Init()
     {
-        LoadData<Table.ItemTable>($"{path}/Item");
+        LoadData<Table.SkillTable>($"{path}/Skill");
         LoadData<Table.MonsterTable>($"{path}/Monster");
     }
 
