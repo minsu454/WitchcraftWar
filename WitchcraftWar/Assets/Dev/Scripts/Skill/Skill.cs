@@ -7,7 +7,7 @@ public abstract class Skill : MonoBehaviour
     /// <summary>
     /// 스킬 초기화
     /// </summary>
-    public void Init(TableData.Skill skillData)
+    public virtual void Init(TableData.Skill skillData)
     {
         this.skillData = skillData;
     }
