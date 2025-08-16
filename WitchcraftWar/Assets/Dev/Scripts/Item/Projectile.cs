@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour, IObjectPoolable<Projectile>
         {
             Enemy enemy = col.GetComponent<Enemy>();
             enemy.GetDamage(damage);
-            GameManager.instance.GetCoin(enemy.Coin);
+            GameManager.Instance.SetCoin(enemy.Coin);
             gameObject.SetActive(false);
         }
         else if (col.CompareTag("ProjectileDetector"))

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public sealed class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
-    private int coin = 200;
+    [SerializeField] private int coin = 100;
     public int Coin
     {
         get { return coin; }
@@ -13,7 +13,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         EventManager.Subscribe(GameEventType.GameOver, GameOver);
     }
@@ -21,9 +21,9 @@ public sealed class GameManager : MonoBehaviour
     /// <summary>
     /// 코인 얻는 함수
     /// </summary>
-    public void GetCoin(object coin)
+    public void SetCoin(int coin)
     {
-        this.coin += (int)coin;
+        this.coin += coin;
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        instance = null;
+        Instance = null;
 
         EventManager.Unsubscribe(GameEventType.GameOver, GameOver);
     }

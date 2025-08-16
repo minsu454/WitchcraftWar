@@ -9,7 +9,7 @@ public class SandFist : Skill
 
     public override void Reset()
     {
-        throw new NotImplementedException();
+        
     }
 
     /// <summary>
@@ -23,6 +23,6 @@ public class SandFist : Skill
 
     public override void Spawn()
     {
-        
+        base.Spawn();
     }
 }

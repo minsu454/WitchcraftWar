@@ -9,16 +9,14 @@ public abstract class Skill : MonoBehaviour
     public bool Active
     {
         get { return active; }
-        set
-        {
-            active = value;
-            if (active is false)
-                Reset();
-        }
     }
 
-    private int count;          //들고있는 갯수
+    private int count = 0;      //들고있는 갯수
+    public int Count { get { return count; } }
+    private int upgradeCount = 3;
 
+    [SerializeField] private Color32 projectileColor;       //투사체 색깔
+    public Color32 ProjectileColor { get { return projectileColor; } }
 
     /// <summary>
     /// 초기화
@@ -31,7 +29,26 @@ public abstract class Skill : MonoBehaviour
     /// <summary>
     /// 스킬 소환
     /// </summary>
-    public abstract void Spawn();
+    public virtual void Spawn()
+    {
+        count++;
+        active = true;
+    }
+
+    public bool CanUpgrade()
+    {
+        if (count < upgradeCount)
+            return false;
+
+        count -= upgradeCount;
+
+        if (count == 0)
+        {
+            active = false;
+        }
+
+        return true;
+    }
 
     /// <summary>
     /// 리셋

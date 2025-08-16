@@ -1,14 +1,16 @@
 using System;
+using UnityEngine;
 
 public class PillarOfFire : Skill
 {
     public override void Reset()
     {
-        throw new NotImplementedException();
+
     }
 
     public override void Spawn()
     {
-        throw new NotImplementedException();
+        base.Spawn();
+        Debug.Log($"{gameObject.name}");
     }
 }
