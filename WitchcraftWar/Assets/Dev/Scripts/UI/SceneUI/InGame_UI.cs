@@ -13,6 +13,8 @@ public class InGame_UI : BaseSceneUI
     [SerializeField] private TextMeshProUGUI skillCountText;                //스킬카운트 텍스트
     [SerializeField] private TextMeshProUGUI skillBuyPriceText;             //스킬가격 텍스트
 
+    [SerializeField] private TextMeshProUGUI RoundText;                     //라운드 텍스트
+
     private UISkillBtn btn;
 
     public override void Init()
@@ -30,6 +32,7 @@ public class InGame_UI : BaseSceneUI
     private void NextRound(object args)
     {
         DOTween.To(() => 0f, x => text.alpha = x, 1f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        RoundText.text = ((int)args).ToString();
     }
 
     /// <summary>

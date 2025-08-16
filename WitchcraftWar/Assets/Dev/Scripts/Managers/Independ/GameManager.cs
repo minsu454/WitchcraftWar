@@ -18,6 +18,11 @@ public sealed class GameManager : MonoBehaviour
         EventManager.Subscribe(GameEventType.GameOver, GameOver);
     }
 
+    private void Start()
+    {
+        SkillManager.Init();
+    }
+
     /// <summary>
     /// 코인 얻는 함수
     /// </summary>
@@ -38,6 +43,7 @@ public sealed class GameManager : MonoBehaviour
     {
         Instance = null;
 
+        SkillManager.Clear();
         EventManager.Unsubscribe(GameEventType.GameOver, GameOver);
     }
 }

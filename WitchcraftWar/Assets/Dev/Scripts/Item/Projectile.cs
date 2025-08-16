@@ -8,14 +8,23 @@ public class Projectile : MonoBehaviour, IObjectPoolable<Projectile>
 {
     public event Action<Projectile> ReturnEvent;
 
-    [SerializeField] private int damage;
+    private int damage;
     [SerializeField] private Rigidbody2D myRb;
+    [SerializeField] private SpriteRenderer mySprRenderer;
 
     [SerializeField] private float moveSpeed;
 
-    public void SetVelocity(Vector3 dir)
+    private void SetVelocity(Vector2 dir)
     {
         myRb.velocity = dir * moveSpeed;
+    }
+
+    public void Set(Color32 color, int damage)
+    {
+        mySprRenderer.color = color;
+        this.damage = damage;
+
+        SetVelocity(Vector2.down);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -24,7 +33,6 @@ public class Projectile : MonoBehaviour, IObjectPoolable<Projectile>
         {
             Enemy enemy = col.GetComponent<Enemy>();
             enemy.GetDamage(damage);
-            GameManager.Instance.SetCoin(enemy.Coin);
             gameObject.SetActive(false);
         }
         else if (col.CompareTag("ProjectileDetector"))

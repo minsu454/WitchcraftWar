@@ -25,11 +25,6 @@ public sealed class Managers : MonoBehaviour
         instance.characterContainer.Init();
     }
 
-    private void Start()
-    {
-        SkillManager.Init();
-    }
-
     /// <summary>
     /// 매니저 생성 함수
     /// </summary>

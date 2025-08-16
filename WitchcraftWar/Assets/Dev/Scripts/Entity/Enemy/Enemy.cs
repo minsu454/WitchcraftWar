@@ -32,14 +32,14 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
     /// <summary>
     /// 적 세팅 함수
     /// </summary>
-    public void Set(EnemyIDType idType, Action enemyDieEvent)
+    public void Set(EnemyIDType idType, int round)
     {
         string sType = idType.EnumToString();
         TableData.Monster data = DataServices.GetData<Table.MonsterTable, TableData.Monster>(sType);
 
-        attack = data.Attack;
+        attack = data.Attack + (round * data.Attack * data.AttackMul);
         moveSpeed = data.MoveSpeed;
-        maxHp = data.MaxHP;
+        maxHp = data.MaxHP + (round * data.MaxHP * data.MaxHPMul);
         curHp = maxHp;
         circleCollider.radius *= data.AttackRange;
         attackSpeed = data.AttackSpeed;
@@ -48,7 +48,6 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
         animator.runtimeAnimatorController = Managers.Container.ReturnAnimator(idType);
 
         SetHpBarUI();
-        EnemyDieEvent += enemyDieEvent;
     }
 
     /// <summary>
@@ -56,6 +55,7 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
     /// </summary>
     protected override void Die()
     {
+        GameManager.Instance.SetCoin(Coin);
         gameObject.SetActive(false);
     }
 

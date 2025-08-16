@@ -13,7 +13,6 @@ public sealed class SpawnManager : MonoBehaviour
     private List<Spawner> spawnerList = new List<Spawner>();
     [SerializeField]
     private float spawnTerm = 4f;           //스폰 텀 저장 변수
-    private int enemyTypeLength;            //적 갯수 변수
 
     private Coroutine coSpawn;              //스폰 코루틴 저장 함수
 
@@ -21,6 +20,8 @@ public sealed class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject baseEnemyPrefab;     //적 기본 프리팹
     private ObjectPool<Enemy> enemyPool;    //적 오브젝트 풀
+
+    private event Func<int> returnRoundEvent;     //라운드 값 리턴 함수
 
     private void Awake()
     {
@@ -35,17 +36,16 @@ public sealed class SpawnManager : MonoBehaviour
         new GameObject("-------------EnemyPool-----------------");
         enemyPool = new ObjectPool<Enemy>("Enemy", baseEnemyPrefab, null, 10);
 
-        enemyTypeLength = Enum.GetValues(typeof(EnemyIDType)).Length;
-
         EventManager.Subscribe(GameEventType.GameOver, UnSpawn);
     }
 
     /// <summary>
     /// 스폰 함수
     /// </summary>
-    public void Spawn(bool isBoss, int spawnCount, Action enemyDieEvent)
+    public void Spawn(bool isBoss, Func<int> returnRoundEvent)
     {
-        coSpawn = StartCoroutine(CoSpawn(isBoss, spawnCount, enemyDieEvent));
+        this.returnRoundEvent += returnRoundEvent;
+        coSpawn = StartCoroutine(CoSpawn(isBoss));
     }
 
     public void UnSpawn(object args)
@@ -56,7 +56,7 @@ public sealed class SpawnManager : MonoBehaviour
     /// <summary>
     /// 스폰 코루틴 함수
     /// </summary>
-    private IEnumerator CoSpawn(bool isBoss, int spawnCount, Action returnEvent)
+    private IEnumerator CoSpawn(bool isBoss)
     {
         if (isBoss)
         {
@@ -64,13 +64,12 @@ public sealed class SpawnManager : MonoBehaviour
         }
         else
         {
-            int randomNum = 0;
-            for (int i = 0; i < spawnCount; i++)
+            while (true)
             {
                 Enemy enemy = enemyPool.GetObject();
                 
-                enemy.Set((EnemyIDType)randomNum, returnEvent);
-                spawnerList[randomNum].Spawn(enemy.gameObject);
+                enemy.Set((EnemyIDType)0, returnRoundEvent.Invoke());
+                spawnerList[0].Spawn(enemy.gameObject);
 
                 yield return YieldCache.WaitForSeconds(spawnTerm);
             }

@@ -1,3 +1,5 @@
+using Common.Pool;
+using System;
 using UnityEngine;
 
 public abstract class Skill : MonoBehaviour
@@ -15,8 +17,17 @@ public abstract class Skill : MonoBehaviour
     public int Count { get { return count; } }
     private int upgradeCount = 3;
 
+    private float curTime = 0;
+    public float CurTime { get { return curTime; } }
+
+    [Header("Skill")]
     [SerializeField] private Color32 projectileColor;       //투사체 색깔
     public Color32 ProjectileColor { get { return projectileColor; } }
+
+    [SerializeField] private ObjectPool<Projectile> projectilePool;     //총알 오브젝트 풀
+    [SerializeField] private GameObject baseProjectilePrefab;           //총알 기본 프리팹
+
+    private Transform shootTr;
 
     /// <summary>
     /// 초기화
@@ -24,6 +35,9 @@ public abstract class Skill : MonoBehaviour
     public virtual void Init(TableData.Skill skillData)
     {
         this.skillData = skillData;
+
+        projectilePool = new ObjectPool<Projectile>($"{nameof(Projectile)}", baseProjectilePrefab, null, 5);
+        shootTr = EntityManager.player.transform;
     }
 
     /// <summary>
@@ -33,6 +47,24 @@ public abstract class Skill : MonoBehaviour
     {
         count++;
         active = true;
+    }
+
+    private void Update()
+    {
+        if (active is false)
+            return;
+
+        curTime += Time.deltaTime;
+
+        if (curTime > skillData.CoolTime / count)
+        {
+            curTime -= skillData.CoolTime / count;
+            Projectile projectile = projectilePool.GetObject();
+
+            projectile.transform.position = shootTr.position;
+            projectile.gameObject.SetActive(true);
+            projectile.Set(projectileColor, skillData.MaxAtk);
+        }
     }
 
     public bool CanUpgrade()
@@ -45,6 +77,7 @@ public abstract class Skill : MonoBehaviour
         if (count == 0)
         {
             active = false;
+            curTime = 0;
         }
 
         return true;

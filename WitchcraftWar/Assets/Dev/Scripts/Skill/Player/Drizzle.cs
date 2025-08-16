@@ -7,10 +7,4 @@ public class Drizzle : Skill
     {
 
     }
-
-    public override void Spawn()
-    {
-        base.Spawn();
-        Debug.Log($"{gameObject.name}");
-    }
 }

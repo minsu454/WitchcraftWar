@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22792567d52cbf4384b6bdd828a33b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileColor:
+    serializedVersion: 2
+    rgba: 4294952192
+  baseProjectilePrefab: {fileID: 3268695025848652160, guid: 557f5901ba0a65040849d939dfb1e689, type: 3}

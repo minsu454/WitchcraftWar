@@ -8,10 +8,10 @@ public abstract class Entity : MonoBehaviour
     public event Action<Vector2> OnMoveEvent;                   //이동시 호출될 이벤트
 
     [Header("Entity")]
-    [SerializeField] protected int curHp;                       //현재 체력
-    [SerializeField] protected int maxHp;                       //최대 체력
-    [SerializeField] protected int attack;                      //공격력
-    public int Attack { get { return attack; } }
+    [SerializeField] protected float curHp;                     //현재 체력
+    [SerializeField] protected float maxHp;                     //최대 체력
+    [SerializeField] protected float attack;                    //공격력
+    public float Attack { get { return attack; } }
     [SerializeField] protected float attackSpeed;               //공격력 속도
     public float AttackSpeed { get { return attackSpeed; } }
     [SerializeField] protected int attackRange;                 //공격 사거리
@@ -32,7 +32,7 @@ public abstract class Entity : MonoBehaviour
     /// <summary>
     /// 데미지 입는 함수
     /// </summary>
-    public void GetDamage(int damage)
+    public void GetDamage(float damage)
     {
         curHp -= damage;
 

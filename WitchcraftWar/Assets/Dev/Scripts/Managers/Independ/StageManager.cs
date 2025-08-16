@@ -1,4 +1,5 @@
 using Common.Event;
+using Common.Timer;
 using UnityEngine;
 
 public sealed class StageManager : MonoBehaviour
@@ -9,6 +10,7 @@ public sealed class StageManager : MonoBehaviour
     private SpawnManager spawnManager;                  //스폰 매니저
     private int enemyCount;                             //현재 스폰되어있는 적 숫자
     private bool isGameOver = false;                    //게임이 종료되었는지 확인하는 변수
+    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -19,10 +21,10 @@ public sealed class StageManager : MonoBehaviour
 
     private void Start()
     {
-
         round++;
         enemyCount = round;
-        spawnManager.Spawn(false, round * roundSpawnCount, EnemyDieEvent);
+        spawnManager.Spawn(false, OnReturnRound);
+        coroutine = StartCoroutine(CoTimer.StartLoop(10f, () => NextRound()));
     }
 
     /// <summary>
@@ -32,8 +34,7 @@ public sealed class StageManager : MonoBehaviour
     {
         round++;
         enemyCount = round;
-        EventManager.Dispatch(GameEventType.NextRound, null);
-        spawnManager.Spawn(false, round * roundSpawnCount, EnemyDieEvent);
+        EventManager.Dispatch(GameEventType.NextRound, round);
     }
     
     /// <summary>
@@ -41,17 +42,23 @@ public sealed class StageManager : MonoBehaviour
     /// </summary>
     private void EnemyDieEvent()
     {
-        enemyCount -= 1;
+        
+    }
 
-        if (enemyCount == 0 && !isGameOver)
-        {
-            NextRound();
-        }
+    private int OnReturnRound()
+    {
+        return round;
     }
 
     private void GameOver(object args)
     {
         isGameOver = true;
+
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = null;
     }
 
     private void OnDestroy()

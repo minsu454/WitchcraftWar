@@ -7,10 +7,4 @@ public class RockBody : Skill
     {
 
     }
-
-    public override void Spawn()
-    {
-        base.Spawn();
-        Debug.Log($"{gameObject.name}");
-    }
 }

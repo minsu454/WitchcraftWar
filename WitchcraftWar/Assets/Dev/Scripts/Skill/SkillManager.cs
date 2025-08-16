@@ -23,6 +23,8 @@ public static class SkillManager
     private static float[] probArr = { 75, 20, 5 };
 
     private static int skillTypeCount = 3;
+    private static int skillUpgradeCount = 2;
+
 
     public static void Init()
     {
@@ -86,11 +88,12 @@ public static class SkillManager
     /// </summary>
     public static void BuySkill()
     {
-        if (GameManager.Instance.Coin - skillBuyPrice < 0)
+        if (GameManager.Instance.Coin - skillBuyPrice < 0 || curSkillCount + 1 > maxSkillCount)
             return;
 
         GetRandomRank();
 
+        curSkillCount++;
         GameManager.Instance.SetCoin(-skillBuyPrice);
         skillBuyPrice++;
     }
@@ -137,11 +140,14 @@ public static class SkillManager
         if (skill.CanUpgrade() is false)
             return;
 
+        curSkillCount -= skillUpgradeCount;
+
         GetRandomSkill(skill.Data.RankType + 1);
     }
 
     public static void Clear()
     {
-
+        skillCacheDict.Clear();
+        rankDict.Clear();
     }
 }
