@@ -21,9 +21,13 @@ public sealed class Managers : MonoBehaviour
         instance.uiManager = CreateManager<UIManager>(go.transform);
 
         DataServices.Init();
-        SkillManager.Init();
 
         instance.characterContainer.Init();
+    }
+
+    private void Start()
+    {
+        SkillManager.Init();
     }
 
     /// <summary>

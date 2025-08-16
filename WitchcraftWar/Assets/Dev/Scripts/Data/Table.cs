@@ -6,11 +6,11 @@ public class Table
     [Serializable]
     public class SkillTable : ITable
     {
-        public List<TableData.Skill> Item;
+        public List<TableData.Skill> Skill;
 
         public IData FindID(object ID)
         {
-            return Item.Find(skill => (int)skill.ID == (int)ID);
+            return Skill.Find(skill => (int)skill.ID == (int)ID);
         }
     }
 

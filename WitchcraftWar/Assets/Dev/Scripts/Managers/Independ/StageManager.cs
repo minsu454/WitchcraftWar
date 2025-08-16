@@ -19,6 +19,7 @@ public sealed class StageManager : MonoBehaviour
 
     private void Start()
     {
+
         round++;
         enemyCount = round;
         spawnManager.Spawn(false, round * roundSpawnCount, EnemyDieEvent);

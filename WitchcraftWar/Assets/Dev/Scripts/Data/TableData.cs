@@ -10,8 +10,9 @@ public class TableData
         public int SkillID;
         public string Name;
         public string Description;
+        public RankType RankType;
         public AttributeType AttributeType;
-        public RangeType RangeType;
+        public AttackType AttackType;
         public int MaxAtk;
         public float CoolTime;
         public int TargetCount;

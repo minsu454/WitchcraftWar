@@ -18,6 +18,9 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
     private EnemyMovement enemyMovement;
     private Coroutine coGiveDamage;                             //일정 시간마다 데미지 주는 코루틴 저장 변수
 
+    private int coin;
+    public int Coin { get { return coin; } }
+
     private void Start()
     {
         triggerDetector.EnterEvent += TriggerEnter2DEvent;
@@ -40,6 +43,7 @@ public class Enemy : Entity, IObjectPoolable<Enemy>
         curHp = maxHp;
         circleCollider.radius *= data.AttackRange;
         attackSpeed = data.AttackSpeed;
+        coin = data.Coin;
 
         animator.runtimeAnimatorController = Managers.Container.ReturnAnimator(idType);
 

@@ -16,12 +16,15 @@ public static class SkillManager
 
         foreach (SkillIDType type in Enum.GetValues(typeof(SkillIDType)))
         {
+            if (type is SkillIDType.None)
+                continue;
+
             string sType = type.EnumToString();
 
-            GameObject go = Resources.Load<GameObject>($"{path}/{sType}");
-            Skill skill = go.GetComponent<Skill>();
+            GameObject clone = GameObject.Instantiate(Resources.Load<GameObject>($"{path}/{sType}"));
+            Skill skill = clone.GetComponent<Skill>();
 
-            skill.Init(DataServices.GetData<Table.SkillTable, TableData.Skill>(sType));
+            skill.Init(DataServices.GetData<Table.SkillTable, TableData.Skill>(type));
 
             skillCacheDict.Add(type, skill);
         }

@@ -1,5 +1,7 @@
 public enum SkillIDType
 {
+    None = 0,
+
     SandFist = 10000,           //모래주먹
     StoneFist = 10001,          //돌주먹
     RockBody = 10002,           //바위육신

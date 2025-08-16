@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    
+
     /// <summary>
     /// 초기화
     /// </summary>

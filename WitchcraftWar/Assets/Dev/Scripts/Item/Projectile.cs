@@ -1,3 +1,4 @@
+using Common.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ public class Projectile : MonoBehaviour, IObjectPoolable<Projectile>
         {
             Enemy enemy = col.GetComponent<Enemy>();
             enemy.GetDamage(damage);
+            GameManager.instance.GetCoin(enemy.Coin);
             gameObject.SetActive(false);
         }
         else if (col.CompareTag("ProjectileDetector"))
